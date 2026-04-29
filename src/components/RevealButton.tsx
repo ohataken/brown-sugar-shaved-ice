@@ -5,7 +5,12 @@ type Props = {
 
 function RevealButton({ onClick, disabled }: Props) {
   return (
-    <button type="button" onClick={onClick} disabled={disabled}>
+    <button
+      type="button"
+      className="button is-primary"
+      onClick={onClick}
+      disabled={disabled}
+    >
       答えを見る
     </button>
   );
