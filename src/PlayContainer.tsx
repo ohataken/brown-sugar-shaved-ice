@@ -61,17 +61,19 @@ function PlayContainer() {
   };
 
   return (
-    <div>
-      <ScoreBoard correct={correct} viewed={viewed} skipped={skipped} total={cards.length} />
-      {current && (
-        <>
-          <Card name={current.name} pinyin={current.pinyin} revealed={revealed} />
-          <AnswerInput value={input} onChange={handleInputChange} />
-          <RevealButton onClick={handleReveal} disabled={revealed} />
-          <SkipButton onClick={handleSkip} />
-        </>
-      )}
-    </div>
+    <section className="section">
+      <div className="container">
+        <ScoreBoard correct={correct} viewed={viewed} skipped={skipped} total={cards.length} />
+        {current && (
+          <>
+            <Card name={current.name} pinyin={current.pinyin} revealed={revealed} />
+            <AnswerInput value={input} onChange={handleInputChange} />
+            <RevealButton onClick={handleReveal} disabled={revealed} />
+            <SkipButton onClick={handleSkip} />
+          </>
+        )}
+      </div>
+    </section>
   );
 }
 
