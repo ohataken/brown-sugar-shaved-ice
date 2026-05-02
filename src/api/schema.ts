@@ -73,6 +73,204 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/cards/{uuid}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                uuid: string;
+            };
+            cookie?: never;
+        };
+        get?: never;
+        /** Updates a card */
+        put: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    uuid: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    "application/json": components["schemas"]["CardInput"];
+                };
+            };
+            responses: {
+                /** @description card updated */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Card"];
+                    };
+                };
+                /** @description card not found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description invalid request */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Errors"];
+                    };
+                };
+            };
+        };
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/owner/cards/{card_uuid}/tags": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                card_uuid: string;
+            };
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Attaches a tag to a card */
+        post: {
+            parameters: {
+                query?: never;
+                header: {
+                    Authorization: string;
+                };
+                path: {
+                    card_uuid: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    "application/json": components["schemas"]["CardTagInput"];
+                };
+            };
+            responses: {
+                /** @description tag already attached (idempotent) */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Card"];
+                    };
+                };
+                /** @description tag attached */
+                201: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Card"];
+                    };
+                };
+                /** @description unauthorized */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Errors"];
+                    };
+                };
+                /** @description card not found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description tag not found */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Errors"];
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/owner/cards/{card_uuid}/tags/{slug}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                card_uuid: string;
+                slug: string;
+            };
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /** Detaches a tag from a card */
+        delete: {
+            parameters: {
+                query?: never;
+                header: {
+                    Authorization: string;
+                };
+                path: {
+                    card_uuid: string;
+                    slug: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description unknown tag slug (idempotent) */
+                204: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description unauthorized */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Errors"];
+                    };
+                };
+                /** @description card not found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/owner/cards": {
         parameters: {
             query?: never;
@@ -133,6 +331,149 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/owner/tags": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Creates a tag */
+        post: {
+            parameters: {
+                query?: never;
+                header: {
+                    Authorization: string;
+                };
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    "application/json": components["schemas"]["TagInput"];
+                };
+            };
+            responses: {
+                /** @description tag created */
+                201: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["OwnerTag"];
+                    };
+                };
+                /** @description unauthorized */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Errors"];
+                    };
+                };
+                /** @description invalid request */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Errors"];
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/tags/{tag_slug}/cards": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                tag_slug: string;
+            };
+            cookie?: never;
+        };
+        /** Lists cards belonging to a tag */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    tag_slug: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description cards listed */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Card"][];
+                    };
+                };
+                /** @description tag not found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/tags": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Lists tags */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description tags listed */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Tag"][];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -141,6 +482,11 @@ export interface components {
             uuid: string;
             name: string;
             pinyin: string;
+            tags: components["schemas"]["Tag"][];
+        };
+        Tag: {
+            slug: string;
+            name: string;
         };
         OwnerCard: {
             id: number;
@@ -152,11 +498,29 @@ export interface components {
             /** Format: date-time */
             updated_at: string;
         };
+        OwnerTag: {
+            id: number;
+            name: string;
+            slug: string;
+            /** Format: date-time */
+            created_at: string;
+            /** Format: date-time */
+            updated_at: string;
+        };
         CardInput: {
             card: {
                 name: string;
                 pinyin: string;
             };
+        };
+        TagInput: {
+            tag: {
+                name: string;
+                slug: string;
+            };
+        };
+        CardTagInput: {
+            tag_slug: string;
         };
         Errors: {
             errors: string[];
