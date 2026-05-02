@@ -71,7 +71,7 @@ function TagPlayContainer() {
         <ScoreBoard correct={correct} viewed={viewed} skipped={skipped} total={cards.length} />
         {current && (
           <>
-            <Card name={current.name} pinyin={current.pinyin} revealed={revealed} />
+            <Card name={current.name} pinyin={current.pinyin} revealed={revealed} tags={current.tags} />
             <AnswerInput value={input} onChange={handleInputChange} />
             <RevealButton onClick={handleReveal} disabled={revealed} />
             <SkipButton onClick={handleSkip} />
