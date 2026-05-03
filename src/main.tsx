@@ -5,6 +5,7 @@ import './index.css'
 import App from './App.tsx'
 import PlayContainer from './PlayContainer.tsx'
 import TagPlayContainer from './TagPlayContainer.tsx'
+import OwnerCardEdit from './OwnerCardEdit.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -13,6 +14,7 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/" element={<App />} />
         <Route path="/play" element={<PlayContainer />} />
         <Route path="/tags/:slug/play" element={<TagPlayContainer />} />
+        <Route path="/owner/card/:uuid/edit" element={<OwnerCardEdit />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>,
