@@ -6,13 +6,14 @@ type Tag = {
 };
 
 type Props = {
+  uuid: string;
   name: string;
   pinyin: string;
   revealed: boolean;
   tags: Tag[];
 };
 
-function Card({ name, pinyin, revealed, tags }: Props) {
+function Card({ uuid, name, pinyin, revealed, tags }: Props) {
   return (
     <div>
       <div>{name}</div>
@@ -26,6 +27,7 @@ function Card({ name, pinyin, revealed, tags }: Props) {
           ))}
         </div>
       )}
+      <Link to={`/owner/card/${uuid}/edit`}>編集</Link>
     </div>
   );
 }
