@@ -82,9 +82,8 @@ export interface paths {
             };
             cookie?: never;
         };
-        get?: never;
-        /** Updates a card */
-        put: {
+        /** Shows a card */
+        get: {
             parameters: {
                 query?: never;
                 header?: never;
@@ -93,13 +92,9 @@ export interface paths {
                 };
                 cookie?: never;
             };
-            requestBody?: {
-                content: {
-                    "application/json": components["schemas"]["CardInput"];
-                };
-            };
+            requestBody?: never;
             responses: {
-                /** @description card updated */
+                /** @description card found */
                 200: {
                     headers: {
                         [name: string]: unknown;
@@ -115,17 +110,9 @@ export interface paths {
                     };
                     content?: never;
                 };
-                /** @description invalid request */
-                422: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": components["schemas"]["Errors"];
-                    };
-                };
             };
         };
+        put?: never;
         post?: never;
         delete?: never;
         options?: never;
@@ -325,6 +312,77 @@ export interface paths {
                 };
             };
         };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/owner/cards/{uuid}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                uuid: string;
+            };
+            cookie?: never;
+        };
+        get?: never;
+        /** Updates a card */
+        put: {
+            parameters: {
+                query?: never;
+                header: {
+                    Authorization: string;
+                };
+                path: {
+                    uuid: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    "application/json": components["schemas"]["CardInput"];
+                };
+            };
+            responses: {
+                /** @description card updated */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["OwnerCard"];
+                    };
+                };
+                /** @description unauthorized */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Errors"];
+                    };
+                };
+                /** @description card not found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description invalid request */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Errors"];
+                    };
+                };
+            };
+        };
+        post?: never;
         delete?: never;
         options?: never;
         head?: never;
