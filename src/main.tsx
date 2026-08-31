@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './index.css'
 import App from './App.tsx'
 import PlayContainer from './PlayContainer.tsx'
+import TagsContainer from './TagsContainer.tsx'
 import TagPlayContainer from './TagPlayContainer.tsx'
 import OwnerCardEdit from './OwnerCardEdit.tsx'
 
@@ -13,6 +14,7 @@ createRoot(document.getElementById('root')!).render(
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/play" element={<PlayContainer />} />
+        <Route path="/tags" element={<TagsContainer />} />
         <Route path="/tags/:slug/play" element={<TagPlayContainer />} />
         <Route path="/owner/card/:uuid/edit" element={<OwnerCardEdit />} />
       </Routes>
