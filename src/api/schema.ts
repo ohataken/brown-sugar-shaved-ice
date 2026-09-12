@@ -403,11 +403,11 @@ export interface paths {
             };
             requestBody?: {
                 content: {
-                    "application/json": components["schemas"]["CardInput"];
+                    "application/json": components["schemas"]["OwnerCardInput"];
                 };
             };
             responses: {
-                /** @description card created */
+                /** @description draft card created */
                 201: {
                     headers: {
                         [name: string]: unknown;
