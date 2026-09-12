@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
 import { client } from './api/client';
+import OwnerCardDescriptionForm from './components/OwnerCardDescriptionForm';
 
 function OwnerCardEdit() {
   const { uuid } = useParams<{ uuid: string }>();
@@ -110,6 +111,7 @@ function OwnerCardEdit() {
             </div>
           </div>
         </form>
+        {uuid && <OwnerCardDescriptionForm cardUuid={uuid} token={token} />}
       </div>
     </section>
   );
