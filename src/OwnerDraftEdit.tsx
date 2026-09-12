@@ -2,16 +2,18 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { client } from './api/client';
 import type { components } from './api/schema';
+import OwnerCardDescriptionForm from './components/OwnerCardDescriptionForm';
+import OwnerCardTagsEditor from './components/OwnerCardTagsEditor';
 import OwnerDraftCardForm from './components/OwnerDraftCardForm';
 
-type OwnerCardData = components['schemas']['OwnerCard'];
+type OwnerDraftCardData = components['schemas']['OwnerDraftCard'];
 
 function OwnerDraftEdit() {
   const { uuid } = useParams<{ uuid: string }>();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const token = searchParams.get('token') ?? '';
-  const [card, setCard] = useState<OwnerCardData | null>(null);
+  const [card, setCard] = useState<OwnerDraftCardData | null>(null);
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
   const [errors, setErrors] = useState<string[]>([]);
@@ -73,6 +75,8 @@ function OwnerDraftEdit() {
       <div className="container">
         <h1 className="title">下書きを編集</h1>
         {card && <OwnerDraftCardForm card={card} token={token} onPublished={handlePublished} />}
+        {card && <OwnerCardTagsEditor initialTags={card.tags} />}
+        {card && <OwnerCardDescriptionForm cardUuid={card.uuid} token={token} />}
       </div>
     </section>
   );
