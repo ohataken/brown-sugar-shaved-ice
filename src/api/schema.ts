@@ -227,7 +227,7 @@ export interface paths {
                         "application/json": components["schemas"]["Card"];
                     };
                 };
-                /** @description card not found */
+                /** @description card is draft */
                 404: {
                     headers: {
                         [name: string]: unknown;
