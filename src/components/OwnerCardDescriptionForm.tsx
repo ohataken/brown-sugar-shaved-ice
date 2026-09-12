@@ -8,6 +8,7 @@ type Props = {
 
 function OwnerCardDescriptionForm({ cardUuid, token }: Props) {
   const [content, setContent] = useState('');
+  const [exists, setExists] = useState(false);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [saved, setSaved] = useState(false);
@@ -19,6 +20,7 @@ function OwnerCardDescriptionForm({ cardUuid, token }: Props) {
     }).then(({ data, error }) => {
       if (data) {
         setContent(data.content);
+        setExists(true);
       } else if (error && 'errors' in error) {
         setErrors(error.errors);
       }
@@ -31,12 +33,16 @@ function OwnerCardDescriptionForm({ cardUuid, token }: Props) {
     setSubmitting(true);
     setSaved(false);
     setErrors([]);
-    const { data, error } = await client.POST('/api/owner/cards/{card_uuid}/card_description', {
+    const request = {
       params: { path: { card_uuid: cardUuid }, header: { Authorization: token } },
       body: { card_description: { content } },
-    });
+    };
+    const { data, error } = exists
+      ? await client.PUT('/api/owner/cards/{card_uuid}/card_description', request)
+      : await client.POST('/api/owner/cards/{card_uuid}/card_description', request);
     setSubmitting(false);
     if (data) {
+      setExists(true);
       setSaved(true);
     } else if (error && 'errors' in error) {
       setErrors(error.errors);
