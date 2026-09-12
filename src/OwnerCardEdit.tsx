@@ -117,7 +117,7 @@ function OwnerCardEdit() {
             </div>
           </div>
         </form>
-        <OwnerCardTagsEditor initialTags={tags} />
+        {uuid && <OwnerCardTagsEditor cardUuid={uuid} token={token} initialTags={tags} />}
         {uuid && <OwnerCardDescriptionForm cardUuid={uuid} token={token} />}
       </div>
     </section>
