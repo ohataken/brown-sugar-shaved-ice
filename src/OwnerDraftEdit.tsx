@@ -13,16 +13,19 @@ function OwnerDraftEdit() {
   const [card, setCard] = useState<OwnerCardData | null>(null);
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
+  const [errors, setErrors] = useState<string[]>([]);
 
   useEffect(() => {
     if (!uuid) return;
     client.GET('/api/owner/cards/drafts/{uuid}', {
       params: { path: { uuid }, header: { Authorization: token } },
-    }).then(({ data, response }) => {
+    }).then(({ data, error, response }) => {
       if (data) {
         setCard(data);
       } else if (response.status === 404) {
         setNotFound(true);
+      } else if (error && 'errors' in error) {
+        setErrors(error.errors);
       }
       setLoading(false);
     });
@@ -40,6 +43,22 @@ function OwnerDraftEdit() {
     return (
       <section className="section">
         <div className="container">下書きが見つかりませんでした</div>
+      </section>
+    );
+  }
+
+  if (errors.length > 0) {
+    return (
+      <section className="section">
+        <div className="container">
+          <div className="notification is-danger">
+            <ul>
+              {errors.map((err, i) => (
+                <li key={i}>{err}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
       </section>
     );
   }
