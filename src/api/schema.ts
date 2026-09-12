@@ -466,11 +466,11 @@ export interface paths {
             };
             requestBody?: {
                 content: {
-                    "application/json": components["schemas"]["CardInput"];
+                    "application/json": components["schemas"]["OwnerCardInput"];
                 };
             };
             responses: {
-                /** @description card updated */
+                /** @description card unpublished */
                 200: {
                     headers: {
                         [name: string]: unknown;
@@ -701,6 +701,14 @@ export interface components {
             card: {
                 name: string;
                 pinyin: string;
+            };
+        };
+        OwnerCardInput: {
+            card: {
+                name: string;
+                pinyin: string;
+                /** Format: date-time */
+                published_at?: string | null;
             };
         };
         CardDescriptionInput: {
