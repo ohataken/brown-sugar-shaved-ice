@@ -42,6 +42,20 @@ function OwnerCardTagsEditor({ cardUuid, token, initialTags }: Props) {
     }
   };
 
+  const handleRemove = async (slug: string) => {
+    setSubmitting(true);
+    setErrors([]);
+    const { error, response } = await client.DELETE('/api/owner/cards/{card_uuid}/tags/{slug}', {
+      params: { path: { card_uuid: cardUuid, slug }, header: { Authorization: token } },
+    });
+    setSubmitting(false);
+    if (response.ok) {
+      setTags((tags) => tags.filter((tag) => tag.slug !== slug));
+    } else if (error && 'errors' in error) {
+      setErrors(error.errors);
+    }
+  };
+
   return (
     <form className="box" onSubmit={handleAdd}>
       <label className="label">タグ</label>
@@ -52,6 +66,12 @@ function OwnerCardTagsEditor({ cardUuid, token, initialTags }: Props) {
           {tags.map((tag) => (
             <span key={tag.slug} className="tag">
               {tag.name}
+              <button
+                type="button"
+                className="delete is-small"
+                disabled={submitting}
+                onClick={() => handleRemove(tag.slug)}
+              />
             </span>
           ))}
         </div>
