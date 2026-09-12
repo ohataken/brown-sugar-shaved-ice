@@ -75,7 +75,7 @@ function OwnerDraftEdit() {
       <div className="container">
         <h1 className="title">下書きを編集</h1>
         {card && <OwnerDraftCardForm card={card} token={token} onPublished={handlePublished} />}
-        {card && <OwnerCardTagsEditor initialTags={card.tags} />}
+        {card && <OwnerCardTagsEditor cardUuid={card.uuid} token={token} initialTags={card.tags} />}
         {card && <OwnerCardDescriptionForm cardUuid={card.uuid} token={token} />}
       </div>
     </section>
