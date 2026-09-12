@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { client } from './api/client';
 import type { components } from './api/schema';
+import OwnerDraftCreateForm from './components/OwnerDraftCreateForm';
 
 type OwnerCardData = components['schemas']['OwnerCard'];
 
 function OwnerDraftsContainer() {
+  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const token = searchParams.get('token') ?? '';
   const [cards, setCards] = useState<OwnerCardData[]>([]);
@@ -24,6 +26,10 @@ function OwnerDraftsContainer() {
       setLoading(false);
     });
   }, [token]);
+
+  const handleCreated = (uuid: string) => {
+    navigate(`/owner/drafts/${uuid}/edit?token=${encodeURIComponent(token)}`);
+  };
 
   if (loading) {
     return (
@@ -53,6 +59,7 @@ function OwnerDraftsContainer() {
     <section className="section">
       <div className="container">
         <h1 className="title">下書き一覧</h1>
+        <OwnerDraftCreateForm token={token} onCreated={handleCreated} />
         {cards.length === 0 ? (
           <div>下書きがありません</div>
         ) : (
