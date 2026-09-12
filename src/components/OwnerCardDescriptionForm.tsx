@@ -9,13 +9,16 @@ type Props = {
 function OwnerCardDescriptionForm({ cardUuid, token }: Props) {
   const [content, setContent] = useState('');
   const [loading, setLoading] = useState(true);
+  const [errors, setErrors] = useState<string[]>([]);
 
   useEffect(() => {
     client.GET('/api/owner/cards/{card_uuid}/card_description', {
       params: { path: { card_uuid: cardUuid }, header: { Authorization: token } },
-    }).then(({ data }) => {
+    }).then(({ data, error }) => {
       if (data) {
         setContent(data.content);
+      } else if (error && 'errors' in error) {
+        setErrors(error.errors);
       }
       setLoading(false);
     });
@@ -37,6 +40,15 @@ function OwnerCardDescriptionForm({ cardUuid, token }: Props) {
           />
         </div>
       </div>
+      {errors.length > 0 && (
+        <div className="notification is-danger">
+          <ul>
+            {errors.map((err, i) => (
+              <li key={i}>{err}</li>
+            ))}
+          </ul>
+        </div>
+      )}
     </form>
   );
 }
