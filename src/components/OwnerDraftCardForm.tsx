@@ -33,19 +33,8 @@ function OwnerDraftCardForm({ card, token }: Props) {
 
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitting(true);
-    setSaved(false);
-    setErrors([]);
-    const { data, error } = await client.PUT('/api/owner/cards/{uuid}', {
-      params: { path: { uuid: card.uuid }, header: { Authorization: token } },
-      body: { card: { name, pinyin } },
-    });
-    setSubmitting(false);
-    if (data) {
-      setSaved(true);
-    } else if (error && 'errors' in error) {
-      setErrors(error.errors);
-    }
+    const data = await updateCard();
+    if (data) setSaved(true);
   };
 
   return (
