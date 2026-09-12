@@ -44,12 +44,15 @@ function OwnerCardTagsEditor({ cardUuid, token, initialTags }: Props) {
 
   const handleRemove = async (slug: string) => {
     setSubmitting(true);
-    const { response } = await client.DELETE('/api/owner/cards/{card_uuid}/tags/{slug}', {
+    setErrors([]);
+    const { error, response } = await client.DELETE('/api/owner/cards/{card_uuid}/tags/{slug}', {
       params: { path: { card_uuid: cardUuid, slug }, header: { Authorization: token } },
     });
     setSubmitting(false);
     if (response.ok) {
       setTags((tags) => tags.filter((tag) => tag.slug !== slug));
+    } else if (error && 'errors' in error) {
+      setErrors(error.errors);
     }
   };
 
