@@ -7,9 +7,10 @@ type OwnerCardData = components['schemas']['OwnerCard'];
 type Props = {
   card: OwnerCardData;
   token: string;
+  onPublished: (uuid: string) => void;
 };
 
-function OwnerDraftCardForm({ card, token }: Props) {
+function OwnerDraftCardForm({ card, token, onPublished }: Props) {
   const [name, setName] = useState(card.name);
   const [pinyin, setPinyin] = useState(card.pinyin);
   const [submitting, setSubmitting] = useState(false);
@@ -35,6 +36,11 @@ function OwnerDraftCardForm({ card, token }: Props) {
     e.preventDefault();
     const data = await updateCard();
     if (data) setSaved(true);
+  };
+
+  const handlePublish = async () => {
+    const data = await updateCard(new Date().toISOString());
+    if (data) onPublished(card.uuid);
   };
 
   return (
@@ -80,6 +86,16 @@ function OwnerDraftCardForm({ card, token }: Props) {
             disabled={submitting}
           >
             保存
+          </button>
+        </div>
+        <div className="control">
+          <button
+            type="button"
+            className={`button is-success ${submitting ? 'is-loading' : ''}`}
+            disabled={submitting}
+            onClick={handlePublish}
+          >
+            公開
           </button>
         </div>
       </div>
