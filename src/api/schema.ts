@@ -542,6 +542,9 @@ export interface components {
             pinyin: string;
             tags: components["schemas"]["Tag"][];
         };
+        CardDescription: {
+            content: string;
+        };
         Tag: {
             slug: string;
             name: string;
