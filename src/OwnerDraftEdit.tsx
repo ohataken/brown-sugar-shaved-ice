@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams, useSearchParams } from 'react-router-dom';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { client } from './api/client';
 import type { components } from './api/schema';
 import OwnerDraftCardForm from './components/OwnerDraftCardForm';
@@ -8,6 +8,7 @@ type OwnerCardData = components['schemas']['OwnerCard'];
 
 function OwnerDraftEdit() {
   const { uuid } = useParams<{ uuid: string }>();
+  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const token = searchParams.get('token') ?? '';
   const [card, setCard] = useState<OwnerCardData | null>(null);
@@ -30,6 +31,10 @@ function OwnerDraftEdit() {
       setLoading(false);
     });
   }, [uuid, token]);
+
+  const handlePublished = () => {
+    navigate(`/owner/drafts?token=${encodeURIComponent(token)}`);
+  };
 
   if (loading) {
     return (
@@ -67,7 +72,7 @@ function OwnerDraftEdit() {
     <section className="section">
       <div className="container">
         <h1 className="title">下書きを編集</h1>
-        {card && <OwnerDraftCardForm card={card} token={token} />}
+        {card && <OwnerDraftCardForm card={card} token={token} onPublished={handlePublished} />}
       </div>
     </section>
   );
