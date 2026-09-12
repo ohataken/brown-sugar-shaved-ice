@@ -407,7 +407,7 @@ export interface paths {
                 };
             };
             responses: {
-                /** @description draft card created */
+                /** @description draft card created without pinyin */
                 201: {
                     headers: {
                         [name: string]: unknown;
@@ -425,7 +425,7 @@ export interface paths {
                         "application/json": components["schemas"]["Errors"];
                     };
                 };
-                /** @description invalid request */
+                /** @description published card without pinyin */
                 422: {
                     headers: {
                         [name: string]: unknown;
@@ -706,7 +706,7 @@ export interface components {
         OwnerCardInput: {
             card: {
                 name: string;
-                pinyin: string;
+                pinyin?: string;
                 /** Format: date-time */
                 published_at?: string | null;
             };
