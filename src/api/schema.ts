@@ -4,6 +4,130 @@
  */
 
 export interface paths {
+    "/api/cards/{card_uuid}/card_description": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                card_uuid: string;
+            };
+            cookie?: never;
+        };
+        /** Shows a card description */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    card_uuid: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description card description found */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["CardDescription"];
+                    };
+                };
+                /** @description card description not found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        /** Updates a card description */
+        put: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    card_uuid: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    "application/json": components["schemas"]["CardDescriptionInput"];
+                };
+            };
+            responses: {
+                /** @description card description updated */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["CardDescription"];
+                    };
+                };
+                /** @description card description not found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description invalid request */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Errors"];
+                    };
+                };
+            };
+        };
+        /** Creates a card description */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    card_uuid: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    "application/json": components["schemas"]["CardDescriptionInput"];
+                };
+            };
+            responses: {
+                /** @description card description created */
+                201: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["CardDescription"];
+                    };
+                };
+                /** @description invalid request */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Errors"];
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/cards": {
         parameters: {
             query?: never;
@@ -103,7 +227,7 @@ export interface paths {
                         "application/json": components["schemas"]["Card"];
                     };
                 };
-                /** @description card not found */
+                /** @description card is draft */
                 404: {
                     headers: {
                         [name: string]: unknown;
@@ -258,6 +382,53 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/owner/cards/drafts": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Lists draft cards */
+        get: {
+            parameters: {
+                query?: never;
+                header: {
+                    Authorization: string;
+                };
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description draft cards listed */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["OwnerCard"][];
+                    };
+                };
+                /** @description unauthorized */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Errors"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/owner/cards": {
         parameters: {
             query?: never;
@@ -279,11 +450,11 @@ export interface paths {
             };
             requestBody?: {
                 content: {
-                    "application/json": components["schemas"]["CardInput"];
+                    "application/json": components["schemas"]["OwnerCardInput"];
                 };
             };
             responses: {
-                /** @description card created */
+                /** @description draft card created without pinyin */
                 201: {
                     headers: {
                         [name: string]: unknown;
@@ -301,7 +472,7 @@ export interface paths {
                         "application/json": components["schemas"]["Errors"];
                     };
                 };
-                /** @description invalid request */
+                /** @description published card without pinyin */
                 422: {
                     headers: {
                         [name: string]: unknown;
@@ -342,11 +513,11 @@ export interface paths {
             };
             requestBody?: {
                 content: {
-                    "application/json": components["schemas"]["CardInput"];
+                    "application/json": components["schemas"]["OwnerCardInput"];
                 };
             };
             responses: {
-                /** @description card updated */
+                /** @description card unpublished */
                 200: {
                     headers: {
                         [name: string]: unknown;
@@ -541,6 +712,12 @@ export interface components {
             name: string;
             pinyin: string;
             tags: components["schemas"]["Tag"][];
+            card_description: {
+                content: string;
+            } | null;
+        };
+        CardDescription: {
+            content: string;
         };
         Tag: {
             slug: string;
@@ -551,6 +728,8 @@ export interface components {
             uuid: string;
             name: string;
             pinyin: string;
+            /** Format: date-time */
+            published_at: string | null;
             /** Format: date-time */
             created_at: string;
             /** Format: date-time */
@@ -569,6 +748,19 @@ export interface components {
             card: {
                 name: string;
                 pinyin: string;
+            };
+        };
+        OwnerCardInput: {
+            card: {
+                name: string;
+                pinyin?: string;
+                /** Format: date-time */
+                published_at?: string | null;
+            };
+        };
+        CardDescriptionInput: {
+            card_description: {
+                content: string;
             };
         };
         TagInput: {
