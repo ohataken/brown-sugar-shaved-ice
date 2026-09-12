@@ -15,6 +15,7 @@ function OwnerCardTagsEditor({ cardUuid, token, initialTags }: Props) {
   const [allTags, setAllTags] = useState<TagData[]>([]);
   const [selectedSlug, setSelectedSlug] = useState('');
   const [submitting, setSubmitting] = useState(false);
+  const [errors, setErrors] = useState<string[]>([]);
 
   useEffect(() => {
     client.GET('/api/tags').then(({ data }) => {
@@ -27,7 +28,8 @@ function OwnerCardTagsEditor({ cardUuid, token, initialTags }: Props) {
   const handleAdd = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
-    const { data } = await client.POST('/api/owner/cards/{card_uuid}/tags', {
+    setErrors([]);
+    const { data, error } = await client.POST('/api/owner/cards/{card_uuid}/tags', {
       params: { path: { card_uuid: cardUuid }, header: { Authorization: token } },
       body: { tag_slug: selectedSlug },
     });
@@ -35,6 +37,8 @@ function OwnerCardTagsEditor({ cardUuid, token, initialTags }: Props) {
     if (data) {
       setTags(data.tags);
       setSelectedSlug('');
+    } else if (error && 'errors' in error) {
+      setErrors(error.errors);
     }
   };
 
@@ -75,6 +79,15 @@ function OwnerCardTagsEditor({ cardUuid, token, initialTags }: Props) {
           </button>
         </div>
       </div>
+      {errors.length > 0 && (
+        <div className="notification is-danger">
+          <ul>
+            {errors.map((err, i) => (
+              <li key={i}>{err}</li>
+            ))}
+          </ul>
+        </div>
+      )}
     </form>
   );
 }
