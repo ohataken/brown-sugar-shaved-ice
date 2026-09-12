@@ -86,42 +86,7 @@ export interface paths {
                 };
             };
         };
-        /** Creates a card description */
-        post: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path: {
-                    card_uuid: string;
-                };
-                cookie?: never;
-            };
-            requestBody?: {
-                content: {
-                    "application/json": components["schemas"]["CardDescriptionInput"];
-                };
-            };
-            responses: {
-                /** @description card description created */
-                201: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": components["schemas"]["CardDescription"];
-                    };
-                };
-                /** @description invalid request */
-                422: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": components["schemas"]["Errors"];
-                    };
-                };
-            };
-        };
+        post?: never;
         delete?: never;
         options?: never;
         head?: never;
