@@ -682,6 +682,8 @@ export interface components {
             name: string;
             pinyin: string;
             /** Format: date-time */
+            published_at: string | null;
+            /** Format: date-time */
             created_at: string;
             /** Format: date-time */
             updated_at: string;
