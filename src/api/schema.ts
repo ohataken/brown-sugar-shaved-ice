@@ -516,7 +516,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["OwnerCard"];
+                        "application/json": components["schemas"]["OwnerDraftCard"];
                     };
                 };
                 /** @description unauthorized */
