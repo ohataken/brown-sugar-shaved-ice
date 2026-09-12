@@ -621,6 +621,11 @@ export interface components {
                 pinyin: string;
             };
         };
+        CardDescriptionInput: {
+            card_description: {
+                content: string;
+            };
+        };
         TagInput: {
             tag: {
                 name: string;
