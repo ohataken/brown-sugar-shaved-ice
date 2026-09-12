@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { client } from './api/client';
 import type { components } from './api/schema';
 
@@ -59,7 +59,7 @@ function OwnerDraftsContainer() {
           <ul>
             {cards.map((card) => (
               <li key={card.uuid}>
-                {card.name}
+                <Link to={`/owner/drafts/${card.uuid}/edit?token=${encodeURIComponent(token)}`}>{card.name}</Link>
               </li>
             ))}
           </ul>
