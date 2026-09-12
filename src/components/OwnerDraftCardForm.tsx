@@ -1,18 +1,34 @@
 import { useState } from 'react';
+import { client } from '../api/client';
 import type { components } from '../api/schema';
 
 type OwnerCardData = components['schemas']['OwnerCard'];
 
 type Props = {
   card: OwnerCardData;
+  token: string;
 };
 
-function OwnerDraftCardForm({ card }: Props) {
+function OwnerDraftCardForm({ card, token }: Props) {
   const [name, setName] = useState(card.name);
   const [pinyin, setPinyin] = useState(card.pinyin);
+  const [submitting, setSubmitting] = useState(false);
+  const [saved, setSaved] = useState(false);
+
+  const handleSave = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitting(true);
+    setSaved(false);
+    const { data } = await client.PUT('/api/owner/cards/{uuid}', {
+      params: { path: { uuid: card.uuid }, header: { Authorization: token } },
+      body: { card: { name, pinyin } },
+    });
+    setSubmitting(false);
+    if (data) setSaved(true);
+  };
 
   return (
-    <form className="box">
+    <form className="box" onSubmit={handleSave}>
       <div className="field">
         <label className="label">名前</label>
         <div className="control">
@@ -34,6 +50,18 @@ function OwnerDraftCardForm({ card }: Props) {
             value={pinyin}
             onChange={(e) => setPinyin(e.target.value)}
           />
+        </div>
+      </div>
+      {saved && <p className="help is-success">保存しました</p>}
+      <div className="field is-grouped">
+        <div className="control">
+          <button
+            type="submit"
+            className={`button is-primary ${submitting ? 'is-loading' : ''}`}
+            disabled={submitting}
+          >
+            保存
+          </button>
         </div>
       </div>
     </form>

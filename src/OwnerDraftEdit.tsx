@@ -67,7 +67,7 @@ function OwnerDraftEdit() {
     <section className="section">
       <div className="container">
         <h1 className="title">下書きを編集</h1>
-        {card && <OwnerDraftCardForm card={card} />}
+        {card && <OwnerDraftCardForm card={card} token={token} />}
       </div>
     </section>
   );
