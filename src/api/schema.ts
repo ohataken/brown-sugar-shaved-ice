@@ -244,6 +244,64 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/owner/cards/{card_uuid}/card_description": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                card_uuid: string;
+            };
+            cookie?: never;
+        };
+        /** Shows a card description */
+        get: {
+            parameters: {
+                query?: never;
+                header: {
+                    Authorization: string;
+                };
+                path: {
+                    card_uuid: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description card description found */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["OwnerCardDescription"];
+                    };
+                };
+                /** @description unauthorized */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Errors"];
+                    };
+                };
+                /** @description card description not found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/owner/cards/{card_uuid}/tags": {
         parameters: {
             query?: never;
@@ -788,6 +846,14 @@ export interface components {
             pinyin: string;
             /** Format: date-time */
             published_at: string | null;
+            /** Format: date-time */
+            created_at: string;
+            /** Format: date-time */
+            updated_at: string;
+        };
+        OwnerCardDescription: {
+            id: number;
+            content: string;
             /** Format: date-time */
             created_at: string;
             /** Format: date-time */
