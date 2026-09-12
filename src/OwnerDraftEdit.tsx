@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { client } from './api/client';
 import type { components } from './api/schema';
+import OwnerCardDescriptionForm from './components/OwnerCardDescriptionForm';
 import OwnerDraftCardForm from './components/OwnerDraftCardForm';
 
 type OwnerCardData = components['schemas']['OwnerCard'];
@@ -73,6 +74,7 @@ function OwnerDraftEdit() {
       <div className="container">
         <h1 className="title">下書きを編集</h1>
         {card && <OwnerDraftCardForm card={card} token={token} onPublished={handlePublished} />}
+        {card && <OwnerCardDescriptionForm cardUuid={card.uuid} token={token} />}
       </div>
     </section>
   );
