@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { client } from '../api/client';
 import type { components } from '../api/schema';
 
 type TagData = components['schemas']['Tag'];
@@ -9,6 +10,16 @@ type Props = {
 
 function OwnerCardTagsEditor({ initialTags }: Props) {
   const [tags] = useState(initialTags);
+  const [allTags, setAllTags] = useState<TagData[]>([]);
+  const [selectedSlug, setSelectedSlug] = useState('');
+
+  useEffect(() => {
+    client.GET('/api/tags').then(({ data }) => {
+      if (data) setAllTags(data);
+    });
+  }, []);
+
+  const attachableTags = allTags.filter((tag) => !tags.some((t) => t.slug === tag.slug));
 
   return (
     <form className="box">
@@ -24,6 +35,20 @@ function OwnerCardTagsEditor({ initialTags }: Props) {
           ))}
         </div>
       )}
+      <div className="field has-addons">
+        <div className="control">
+          <div className="select">
+            <select value={selectedSlug} onChange={(e) => setSelectedSlug(e.target.value)}>
+              <option value="">タグを選択</option>
+              {attachableTags.map((tag) => (
+                <option key={tag.slug} value={tag.slug}>
+                  {tag.name}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+      </div>
     </form>
   );
 }
