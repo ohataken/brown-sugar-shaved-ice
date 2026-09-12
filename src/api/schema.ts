@@ -665,6 +665,9 @@ export interface components {
             name: string;
             pinyin: string;
             tags: components["schemas"]["Tag"][];
+            card_description: {
+                content: string;
+            } | null;
         };
         CardDescription: {
             content: string;
