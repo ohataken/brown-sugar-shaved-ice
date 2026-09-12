@@ -9,16 +9,22 @@ type Props = {
 function OwnerDraftCreateForm({ token, onCreated }: Props) {
   const [name, setName] = useState('');
   const [submitting, setSubmitting] = useState(false);
+  const [errors, setErrors] = useState<string[]>([]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
-    const { data } = await client.POST('/api/owner/cards', {
+    setErrors([]);
+    const { data, error } = await client.POST('/api/owner/cards', {
       params: { header: { Authorization: token } },
       body: { card: { name } },
     });
     setSubmitting(false);
-    if (data) onCreated(data.uuid);
+    if (data) {
+      onCreated(data.uuid);
+    } else if (error) {
+      setErrors(error.errors);
+    }
   };
 
   return (
@@ -44,6 +50,15 @@ function OwnerDraftCreateForm({ token, onCreated }: Props) {
           </button>
         </div>
       </div>
+      {errors.length > 0 && (
+        <div className="notification is-danger">
+          <ul>
+            {errors.map((err, i) => (
+              <li key={i}>{err}</li>
+            ))}
+          </ul>
+        </div>
+      )}
     </form>
   );
 }
