@@ -4,6 +4,53 @@
  */
 
 export interface paths {
+    "/api/cards/{card_uuid}/card_description": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                card_uuid: string;
+            };
+            cookie?: never;
+        };
+        /** Shows a card description */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    card_uuid: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description card description found */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["CardDescription"];
+                    };
+                };
+                /** @description card description not found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/cards": {
         parameters: {
             query?: never;
