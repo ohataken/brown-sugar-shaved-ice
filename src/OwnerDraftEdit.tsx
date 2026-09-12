@@ -5,14 +5,14 @@ import type { components } from './api/schema';
 import OwnerCardDescriptionForm from './components/OwnerCardDescriptionForm';
 import OwnerDraftCardForm from './components/OwnerDraftCardForm';
 
-type OwnerCardData = components['schemas']['OwnerCard'];
+type OwnerDraftCardData = components['schemas']['OwnerDraftCard'];
 
 function OwnerDraftEdit() {
   const { uuid } = useParams<{ uuid: string }>();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const token = searchParams.get('token') ?? '';
-  const [card, setCard] = useState<OwnerCardData | null>(null);
+  const [card, setCard] = useState<OwnerDraftCardData | null>(null);
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
   const [errors, setErrors] = useState<string[]>([]);
