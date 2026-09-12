@@ -7,6 +7,7 @@ import PlayContainer from './PlayContainer.tsx'
 import TagsContainer from './TagsContainer.tsx'
 import TagPlayContainer from './TagPlayContainer.tsx'
 import OwnerCardEdit from './OwnerCardEdit.tsx'
+import OwnerDraftsContainer from './OwnerDraftsContainer.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -17,6 +18,7 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/tags" element={<TagsContainer />} />
         <Route path="/tags/:slug/play" element={<TagPlayContainer />} />
         <Route path="/owner/card/:uuid/edit" element={<OwnerCardEdit />} />
+        <Route path="/owner/drafts" element={<OwnerDraftsContainer />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>,
