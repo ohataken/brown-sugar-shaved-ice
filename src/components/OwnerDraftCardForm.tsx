@@ -16,13 +16,13 @@ function OwnerDraftCardForm({ card, token }: Props) {
   const [saved, setSaved] = useState(false);
   const [errors, setErrors] = useState<string[]>([]);
 
-  const updateCard = async () => {
+  const updateCard = async (published_at?: string) => {
     setSubmitting(true);
     setSaved(false);
     setErrors([]);
     const { data, error } = await client.PUT('/api/owner/cards/{uuid}', {
       params: { path: { uuid: card.uuid }, header: { Authorization: token } },
-      body: { card: { name, pinyin } },
+      body: { card: { name, pinyin, published_at } },
     });
     setSubmitting(false);
     if (error && 'errors' in error) {
