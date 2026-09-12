@@ -465,7 +465,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["OwnerCard"][];
+                        "application/json": components["schemas"]["OwnerDraftCard"][];
                     };
                 };
                 /** @description unauthorized */
@@ -846,6 +846,19 @@ export interface components {
             pinyin: string;
             /** Format: date-time */
             published_at: string | null;
+            /** Format: date-time */
+            created_at: string;
+            /** Format: date-time */
+            updated_at: string;
+        };
+        OwnerDraftCard: {
+            id: number;
+            uuid: string;
+            name: string;
+            pinyin: string;
+            /** Format: date-time */
+            published_at: string | null;
+            tags: components["schemas"]["Tag"][];
             /** Format: date-time */
             created_at: string;
             /** Format: date-time */
