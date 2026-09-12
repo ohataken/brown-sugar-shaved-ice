@@ -14,17 +14,23 @@ function OwnerDraftCardForm({ card, token }: Props) {
   const [pinyin, setPinyin] = useState(card.pinyin);
   const [submitting, setSubmitting] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [errors, setErrors] = useState<string[]>([]);
 
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
     setSaved(false);
-    const { data } = await client.PUT('/api/owner/cards/{uuid}', {
+    setErrors([]);
+    const { data, error } = await client.PUT('/api/owner/cards/{uuid}', {
       params: { path: { uuid: card.uuid }, header: { Authorization: token } },
       body: { card: { name, pinyin } },
     });
     setSubmitting(false);
-    if (data) setSaved(true);
+    if (data) {
+      setSaved(true);
+    } else if (error && 'errors' in error) {
+      setErrors(error.errors);
+    }
   };
 
   return (
@@ -52,6 +58,15 @@ function OwnerDraftCardForm({ card, token }: Props) {
           />
         </div>
       </div>
+      {errors.length > 0 && (
+        <div className="notification is-danger">
+          <ul>
+            {errors.map((err, i) => (
+              <li key={i}>{err}</li>
+            ))}
+          </ul>
+        </div>
+      )}
       {saved && <p className="help is-success">保存しました</p>}
       <div className="field is-grouped">
         <div className="control">
