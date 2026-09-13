@@ -46,8 +46,10 @@ function CardContainer() {
       <div className="container">
         <div className="card">
           <div className="card-content">
-            <h1 className="title">{card?.name}</h1>
-            <p className="subtitle">{card?.pinyin}</p>
+            <div className="content is-large">
+              <h1>{card?.name}</h1>
+              <p>{card?.pinyin}</p>
+            </div>
             {card && card.tags.length > 0 && (
               <div className="tags">
                 {card.tags.map((tag) => (
