@@ -57,6 +57,11 @@ function OwnerCardContainer() {
             ))}
           </div>
         )}
+        {card?.card_description && (
+          <div className="content">
+            <p>{card.card_description.content}</p>
+          </div>
+        )}
       </div>
     </section>
   );
