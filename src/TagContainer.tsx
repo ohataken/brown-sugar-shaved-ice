@@ -56,8 +56,9 @@ function TagContainer() {
               <div className="card-content">
                 <div className="content is-large">
                   <h1>
-                    <Link to={`/cards/${card.uuid}`}>{card.name}</Link>
+                    <Link to={`/cards/${card.uuid}`} className="has-text-inherit">{card.name}</Link>
                   </h1>
+                  <p>{card.pinyin}</p>
                 </div>
               </div>
             </div>
