@@ -46,6 +46,9 @@ function TagCardsContainer() {
       <div className="container">
         <h1 className="title">タグのカード一覧</h1>
         <p className="subtitle">{slug}</p>
+        <p>
+          <Link to={`/tags/${slug}/play`} className="button is-primary">プレイする</Link>
+        </p>
         {cards.length === 0 ? (
           <p>カードがありません</p>
         ) : (
