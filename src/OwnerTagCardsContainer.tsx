@@ -14,6 +14,7 @@ function OwnerTagCardsContainer() {
   const [drafts, setDrafts] = useState<OwnerDraftCardData[]>([]);
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
+  const [errors, setErrors] = useState<string[]>([]);
 
   useEffect(() => {
     if (!slug) return;
@@ -32,9 +33,11 @@ function OwnerTagCardsContainer() {
   useEffect(() => {
     client.GET('/api/owner/cards/drafts', {
       params: { header: { Authorization: token } },
-    }).then(({ data }) => {
+    }).then(({ data, error }) => {
       if (data) {
         setDrafts(data.filter((card) => card.tags.some((tag) => tag.slug === slug)));
+      } else if (error) {
+        setErrors(error.errors);
       }
     });
   }, [slug, token]);
@@ -51,6 +54,22 @@ function OwnerTagCardsContainer() {
     return (
       <section className="section">
         <div className="container">タグが見つかりませんでした</div>
+      </section>
+    );
+  }
+
+  if (errors.length > 0) {
+    return (
+      <section className="section">
+        <div className="container">
+          <div className="notification is-danger">
+            <ul>
+              {errors.map((err, i) => (
+                <li key={i}>{err}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
       </section>
     );
   }
