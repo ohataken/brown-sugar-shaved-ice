@@ -9,6 +9,7 @@ import TagsContainer from './TagsContainer.tsx'
 import TagPlayContainer from './TagPlayContainer.tsx'
 import TagCardsContainer from './TagCardsContainer.tsx'
 import OwnerCardEdit from './OwnerCardEdit.tsx'
+import OwnerCardContainer from './OwnerCardContainer.tsx'
 import OwnerDraftsContainer from './OwnerDraftsContainer.tsx'
 import OwnerDraftEdit from './OwnerDraftEdit.tsx'
 import OwnerTagsContainer from './OwnerTagsContainer.tsx'
@@ -25,6 +26,7 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/tags/:slug/play" element={<TagPlayContainer />} />
         <Route path="/tags/:slug/cards" element={<TagCardsContainer />} />
         <Route path="/owner/card/:uuid/edit" element={<OwnerCardEdit />} />
+        <Route path="/owner/cards/:uuid" element={<OwnerCardContainer />} />
         <Route path="/owner/drafts" element={<OwnerDraftsContainer />} />
         <Route path="/owner/drafts/:uuid/edit" element={<OwnerDraftEdit />} />
         <Route path="/owner/tags" element={<OwnerTagsContainer />} />
