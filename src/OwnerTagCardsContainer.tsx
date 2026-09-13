@@ -79,6 +79,9 @@ function OwnerTagCardsContainer() {
       <div className="container">
         <h1 className="title">タグのカード一覧</h1>
         <p className="subtitle">{slug}</p>
+        <p>
+          <Link to={`/tags/${slug}/cards`}>公開ページを見る</Link>
+        </p>
         <h2 className="title is-5">公開済み</h2>
         {cards.length === 0 ? (
           <p>公開済みのカードがありません</p>
