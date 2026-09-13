@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { client } from './api/client';
 import type { components } from './api/schema';
 
@@ -46,6 +46,15 @@ function CardContainer() {
       <div className="container">
         <h1 className="title">{card?.name}</h1>
         <p className="subtitle">{card?.pinyin}</p>
+        {card && card.tags.length > 0 && (
+          <div className="tags">
+            {card.tags.map((tag) => (
+              <Link key={tag.slug} to={`/tags/${tag.slug}/cards`} className="tag">
+                {tag.name}
+              </Link>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );
