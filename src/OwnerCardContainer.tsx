@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams, useSearchParams } from 'react-router-dom';
 import { client } from './api/client';
 import type { components } from './api/schema';
 
@@ -7,6 +7,8 @@ type CardData = components['schemas']['Card'];
 
 function OwnerCardContainer() {
   const { uuid } = useParams<{ uuid: string }>();
+  const [searchParams] = useSearchParams();
+  const token = searchParams.get('token') ?? '';
   const [card, setCard] = useState<CardData | null>(null);
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
@@ -46,6 +48,15 @@ function OwnerCardContainer() {
       <div className="container">
         <h1 className="title">{card?.name}</h1>
         <p className="subtitle">{card?.pinyin}</p>
+        {card && card.tags.length > 0 && (
+          <div className="tags">
+            {card.tags.map((tag) => (
+              <Link key={tag.slug} to={`/owner/tags/${tag.slug}/cards?token=${encodeURIComponent(token)}`} className="tag">
+                {tag.name}
+              </Link>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );
