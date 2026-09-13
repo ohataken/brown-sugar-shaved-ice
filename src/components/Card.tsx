@@ -30,7 +30,6 @@ function Card({ uuid, name, pinyin, revealed, tags }: Props) {
             ))}
           </div>
         )}
-        <Link to={`/owner/card/${uuid}/edit`}>編集</Link>
       </div>
     </div>
   );
