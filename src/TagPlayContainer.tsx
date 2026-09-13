@@ -7,6 +7,7 @@ import Card from './components/Card';
 import AnswerInput from './components/AnswerInput';
 import RevealButton from './components/RevealButton';
 import SkipButton from './components/SkipButton';
+import EditButton from './components/EditButton';
 
 type CardData = components['schemas']['Card'];
 
@@ -75,6 +76,7 @@ function TagPlayContainer() {
             <AnswerInput value={input} onChange={handleInputChange} />
             <RevealButton onClick={handleReveal} disabled={revealed} />
             <SkipButton onClick={handleSkip} />
+            <EditButton uuid={current.uuid} />
           </>
         )}
       </div>
