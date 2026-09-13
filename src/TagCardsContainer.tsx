@@ -52,13 +52,17 @@ function TagCardsContainer() {
         {cards.length === 0 ? (
           <p>カードがありません</p>
         ) : (
-          <ul>
-            {cards.map((card) => (
-              <li key={card.uuid}>
-                <Link to={`/cards/${card.uuid}`}>{card.name}</Link>
-              </li>
-            ))}
-          </ul>
+          cards.map((card) => (
+            <div key={card.uuid} className="card">
+              <div className="card-content">
+                <div className="content is-large">
+                  <h1>
+                    <Link to={`/cards/${card.uuid}`}>{card.name}</Link>
+                  </h1>
+                </div>
+              </div>
+            </div>
+          ))
         )}
       </div>
     </section>
