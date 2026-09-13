@@ -33,7 +33,7 @@ function TagsContainer() {
         ) : (
           <div className="tags">
             {tags.map((tag) => (
-              <Link key={tag.slug} to={`/tags/${tag.slug}`} className="tag">
+              <Link key={tag.slug} to={`/tags/${tag.slug}`} className="tag is-large">
                 {tag.name}
               </Link>
             ))}
