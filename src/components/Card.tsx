@@ -17,8 +17,10 @@ function Card({ uuid, name, pinyin, revealed, tags }: Props) {
   return (
     <div className="card">
       <div className="card-content">
-        <div>{name}</div>
-        {revealed && <div>{pinyin}</div>}
+        <div className="content is-large">
+          <h1>{name}</h1>
+          {revealed && <p>{pinyin}</p>}
+        </div>
         {tags.length > 0 && (
           <div className="tags">
             {tags.map((tag) => (
