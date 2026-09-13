@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
 import { client } from './api/client';
 import type { components } from './api/schema';
 
 type TagData = components['schemas']['Tag'];
 
 function OwnerTagsContainer() {
+  const [searchParams] = useSearchParams();
+  const token = searchParams.get('token') ?? '';
   const [tags, setTags] = useState<TagData[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -33,7 +36,7 @@ function OwnerTagsContainer() {
           <ul>
             {tags.map((tag) => (
               <li key={tag.slug}>
-                {tag.name}
+                <Link to={`/owner/tags/${tag.slug}/cards?token=${encodeURIComponent(token)}`}>{tag.name}</Link>
               </li>
             ))}
           </ul>
