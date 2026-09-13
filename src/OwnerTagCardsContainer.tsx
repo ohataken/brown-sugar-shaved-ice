@@ -4,12 +4,14 @@ import { client } from './api/client';
 import type { components } from './api/schema';
 
 type CardData = components['schemas']['Card'];
+type OwnerDraftCardData = components['schemas']['OwnerDraftCard'];
 
 function OwnerTagCardsContainer() {
   const { slug } = useParams<{ slug: string }>();
   const [searchParams] = useSearchParams();
   const token = searchParams.get('token') ?? '';
   const [cards, setCards] = useState<CardData[]>([]);
+  const [drafts, setDrafts] = useState<OwnerDraftCardData[]>([]);
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
 
@@ -26,6 +28,16 @@ function OwnerTagCardsContainer() {
       setLoading(false);
     });
   }, [slug]);
+
+  useEffect(() => {
+    client.GET('/api/owner/cards/drafts', {
+      params: { header: { Authorization: token } },
+    }).then(({ data }) => {
+      if (data) {
+        setDrafts(data.filter((card) => card.tags.some((tag) => tag.slug === slug)));
+      }
+    });
+  }, [slug, token]);
 
   if (loading) {
     return (
@@ -56,6 +68,18 @@ function OwnerTagCardsContainer() {
             {cards.map((card) => (
               <li key={card.uuid}>
                 <Link to={`/owner/card/${card.uuid}/edit?token=${encodeURIComponent(token)}`}>{card.name}</Link>
+              </li>
+            ))}
+          </ul>
+        )}
+        <h2 className="title is-5">下書き</h2>
+        {drafts.length === 0 ? (
+          <p>下書きのカードがありません</p>
+        ) : (
+          <ul>
+            {drafts.map((card) => (
+              <li key={card.uuid}>
+                <Link to={`/owner/drafts/${card.uuid}/edit?token=${encodeURIComponent(token)}`}>{card.name}</Link>
               </li>
             ))}
           </ul>
