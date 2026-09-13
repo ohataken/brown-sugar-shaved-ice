@@ -1,0 +1,68 @@
+import { useEffect, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import { client } from './api/client';
+import type { components } from './api/schema';
+
+type CardData = components['schemas']['Card'];
+
+function TagCardsContainer() {
+  const { slug } = useParams<{ slug: string }>();
+  const [cards, setCards] = useState<CardData[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [notFound, setNotFound] = useState(false);
+
+  useEffect(() => {
+    if (!slug) return;
+    client.GET('/api/tags/{tag_slug}/cards', {
+      params: { path: { tag_slug: slug } },
+    }).then(({ data, response }) => {
+      if (data) {
+        setCards(data);
+      } else if (response.status === 404) {
+        setNotFound(true);
+      }
+      setLoading(false);
+    });
+  }, [slug]);
+
+  if (loading) {
+    return (
+      <section className="section">
+        <div className="container">読み込み中...</div>
+      </section>
+    );
+  }
+
+  if (notFound) {
+    return (
+      <section className="section">
+        <div className="container">タグが見つかりませんでした</div>
+      </section>
+    );
+  }
+
+  return (
+    <section className="section">
+      <div className="container">
+        <h1 className="title">タグのカード一覧</h1>
+        <p className="subtitle">{slug}</p>
+        <p>
+          <Link to={`/tags/${slug}/play`} className="button is-primary">プレイする</Link>
+        </p>
+        {cards.length === 0 ? (
+          <p>カードがありません</p>
+        ) : (
+          <ul>
+            {cards.map((card) => (
+              <li key={card.uuid}>
+                <Link to={`/cards/${card.uuid}`}>{card.name}</Link>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </section>
+  );
+}
+
+export default TagCardsContainer;
