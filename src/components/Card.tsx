@@ -15,19 +15,21 @@ type Props = {
 
 function Card({ uuid, name, pinyin, revealed, tags }: Props) {
   return (
-    <div>
-      <div>{name}</div>
-      {revealed && <div>{pinyin}</div>}
-      {tags.length > 0 && (
-        <div className="tags">
-          {tags.map((tag) => (
-            <Link key={tag.slug} to={`/tags/${tag.slug}/play`} className="tag">
-              {tag.name}
-            </Link>
-          ))}
-        </div>
-      )}
-      <Link to={`/owner/card/${uuid}/edit`}>編集</Link>
+    <div className="card">
+      <div className="card-content">
+        <div>{name}</div>
+        {revealed && <div>{pinyin}</div>}
+        {tags.length > 0 && (
+          <div className="tags">
+            {tags.map((tag) => (
+              <Link key={tag.slug} to={`/tags/${tag.slug}/play`} className="tag">
+                {tag.name}
+              </Link>
+            ))}
+          </div>
+        )}
+        <Link to={`/owner/card/${uuid}/edit`}>編集</Link>
+      </div>
     </div>
   );
 }
