@@ -31,12 +31,16 @@ function TagsContainer() {
         {tags.length === 0 ? (
           <div>タグがありません</div>
         ) : (
-          <div className="tags">
-            {tags.map((tag) => (
-              <Link key={tag.slug} to={`/tags/${tag.slug}`} className="tag is-large">
-                {tag.name}
-              </Link>
-            ))}
+          <div className="fixed-grid has-1-cols">
+            <div className="grid">
+              {tags.map((tag) => (
+                <div key={tag.slug} className="cell">
+                  <Link to={`/tags/${tag.slug}`} className="tag is-large">
+                    {tag.name}
+                  </Link>
+                </div>
+              ))}
+            </div>
           </div>
         )}
       </div>
