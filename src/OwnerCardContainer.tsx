@@ -51,6 +51,9 @@ function OwnerCardContainer() {
         <p>
           <Link to={`/owner/card/${uuid}/edit?token=${encodeURIComponent(token)}`}>編集</Link>
         </p>
+        <p>
+          <Link to={`/cards/${uuid}`}>公開ページを見る</Link>
+        </p>
         {card && card.tags.length > 0 && (
           <div className="tags">
             {card.tags.map((tag) => (
