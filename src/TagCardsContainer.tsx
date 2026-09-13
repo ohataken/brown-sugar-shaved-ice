@@ -55,7 +55,11 @@ function TagCardsContainer() {
           cards.map((card) => (
             <div key={card.uuid} className="card">
               <div className="card-content">
-                <Link to={`/cards/${card.uuid}`}>{card.name}</Link>
+                <div className="content is-large">
+                  <h1>
+                    <Link to={`/cards/${card.uuid}`}>{card.name}</Link>
+                  </h1>
+                </div>
               </div>
             </div>
           ))
