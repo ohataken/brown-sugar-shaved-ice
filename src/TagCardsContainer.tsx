@@ -59,6 +59,7 @@ function TagCardsContainer() {
                   <h1>
                     <Link to={`/cards/${card.uuid}`}>{card.name}</Link>
                   </h1>
+                  <p>{card.pinyin}</p>
                 </div>
               </div>
             </div>
