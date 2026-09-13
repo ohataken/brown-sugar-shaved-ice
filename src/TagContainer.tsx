@@ -45,6 +45,9 @@ function TagContainer() {
     <section className="section">
       <div className="container">
         <h1 className="title">{slug}</h1>
+        <p>
+          <Link to={`/tags/${slug}/play`} className="button is-primary">プレイする</Link>
+        </p>
         {cards.length === 0 ? (
           <p>カードがありません</p>
         ) : (
