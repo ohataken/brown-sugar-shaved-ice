@@ -6,6 +6,7 @@ import Card from './components/Card';
 import AnswerInput from './components/AnswerInput';
 import RevealButton from './components/RevealButton';
 import SkipButton from './components/SkipButton';
+import EditButton from './components/EditButton';
 
 type CardData = components['schemas']['Card'];
 
@@ -66,10 +67,11 @@ function PlayContainer() {
         <ScoreBoard correct={correct} viewed={viewed} skipped={skipped} total={cards.length} />
         {current && (
           <>
-            <Card uuid={current.uuid} name={current.name} pinyin={current.pinyin} revealed={revealed} tags={current.tags} />
+            <Card name={current.name} pinyin={current.pinyin} revealed={revealed} tags={current.tags} />
             <AnswerInput value={input} onChange={handleInputChange} />
             <RevealButton onClick={handleReveal} disabled={revealed} />
             <SkipButton onClick={handleSkip} />
+            <EditButton uuid={current.uuid} />
           </>
         )}
       </div>
