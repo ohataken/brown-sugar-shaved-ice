@@ -5,7 +5,7 @@ import type { components } from './api/schema';
 
 type TagData = components['schemas']['Tag'];
 
-function TagsContainer() {
+function TagsIndexContainer() {
   const [tags, setTags] = useState<TagData[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -48,4 +48,4 @@ function TagsContainer() {
   );
 }
 
-export default TagsContainer;
+export default TagsIndexContainer;

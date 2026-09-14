@@ -5,7 +5,7 @@ import './index.css'
 import App from './App.tsx'
 import PlayContainer from './PlayContainer.tsx'
 import CardShowContainer from './CardShowContainer.tsx'
-import TagsContainer from './TagsContainer.tsx'
+import TagsIndexContainer from './TagsIndexContainer.tsx'
 import TagContainer from './TagContainer.tsx'
 import TagPlayContainer from './TagPlayContainer.tsx'
 import TagCardsContainer from './TagCardsContainer.tsx'
@@ -23,7 +23,7 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/" element={<App />} />
         <Route path="/play" element={<PlayContainer />} />
         <Route path="/cards/:uuid" element={<CardShowContainer />} />
-        <Route path="/tags" element={<TagsContainer />} />
+        <Route path="/tags" element={<TagsIndexContainer />} />
         <Route path="/tags/:slug" element={<TagContainer />} />
         <Route path="/tags/:slug/play" element={<TagPlayContainer />} />
         <Route path="/tags/:slug/cards" element={<TagCardsContainer />} />
