@@ -49,7 +49,7 @@ function OwnerCardShowContainer() {
         <h1 className="title">{card?.name}</h1>
         <p className="subtitle">{card?.pinyin}</p>
         <p>
-          <Link to={`/owner/card/${uuid}/edit?token=${encodeURIComponent(token)}`}>編集</Link>
+          <Link to={`/owner/cards/${uuid}/edit?token=${encodeURIComponent(token)}`}>編集</Link>
         </p>
         <p>
           <Link to={`/cards/${uuid}`}>公開ページを見る</Link>

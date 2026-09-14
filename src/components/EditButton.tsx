@@ -6,7 +6,7 @@ type Props = {
 
 function EditButton({ uuid }: Props) {
   return (
-    <Link to={`/owner/card/${uuid}/edit`} className="button">
+    <Link to={`/owner/cards/${uuid}/edit`} className="button">
       編集
     </Link>
   );
