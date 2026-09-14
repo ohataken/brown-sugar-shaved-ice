@@ -13,7 +13,7 @@ import OwnerCardEditContainer from './OwnerCardEditContainer.tsx'
 import OwnerCardShowContainer from './OwnerCardShowContainer.tsx'
 import OwnerDraftsIndexContainer from './OwnerDraftsIndexContainer.tsx'
 import OwnerDraftEditContainer from './OwnerDraftEditContainer.tsx'
-import OwnerTagsContainer from './OwnerTagsContainer.tsx'
+import OwnerTagsIndexContainer from './OwnerTagsIndexContainer.tsx'
 import OwnerTagCardsContainer from './OwnerTagCardsContainer.tsx'
 
 createRoot(document.getElementById('root')!).render(
@@ -31,7 +31,7 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/owner/cards/:uuid" element={<OwnerCardShowContainer />} />
         <Route path="/owner/drafts" element={<OwnerDraftsIndexContainer />} />
         <Route path="/owner/drafts/:uuid/edit" element={<OwnerDraftEditContainer />} />
-        <Route path="/owner/tags" element={<OwnerTagsContainer />} />
+        <Route path="/owner/tags" element={<OwnerTagsIndexContainer />} />
         <Route path="/owner/tags/:slug/cards" element={<OwnerTagCardsContainer />} />
       </Routes>
     </BrowserRouter>

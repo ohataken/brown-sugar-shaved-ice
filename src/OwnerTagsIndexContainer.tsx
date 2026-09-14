@@ -5,7 +5,7 @@ import type { components } from './api/schema';
 
 type TagData = components['schemas']['Tag'];
 
-function OwnerTagsContainer() {
+function OwnerTagsIndexContainer() {
   const [searchParams] = useSearchParams();
   const token = searchParams.get('token') ?? '';
   const [tags, setTags] = useState<TagData[]>([]);
@@ -46,4 +46,4 @@ function OwnerTagsContainer() {
   );
 }
 
-export default OwnerTagsContainer;
+export default OwnerTagsIndexContainer;
