@@ -6,7 +6,7 @@ import type { components } from './api/schema';
 type CardData = components['schemas']['Card'];
 type OwnerDraftCardData = components['schemas']['OwnerDraftCard'];
 
-function OwnerTagCardsContainer() {
+function OwnerTagCardsIndexContainer() {
   const { slug } = useParams<{ slug: string }>();
   const [searchParams] = useSearchParams();
   const token = searchParams.get('token') ?? '';
@@ -111,4 +111,4 @@ function OwnerTagCardsContainer() {
   );
 }
 
-export default OwnerTagCardsContainer;
+export default OwnerTagCardsIndexContainer;
