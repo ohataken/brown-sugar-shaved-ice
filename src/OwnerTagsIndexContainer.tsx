@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { client } from './api/client';
 import type { components } from './api/schema';
 
 type TagData = components['schemas']['Tag'];
 
-function TagsContainer() {
+function OwnerTagsIndexContainer() {
+  const [searchParams] = useSearchParams();
+  const token = searchParams.get('token') ?? '';
   const [tags, setTags] = useState<TagData[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -31,21 +33,17 @@ function TagsContainer() {
         {tags.length === 0 ? (
           <div>タグがありません</div>
         ) : (
-          <div className="fixed-grid has-1-cols">
-            <div className="grid">
-              {tags.map((tag) => (
-                <div key={tag.slug} className="cell">
-                  <Link to={`/tags/${tag.slug}`} className="tag is-large">
-                    {tag.name}
-                  </Link>
-                </div>
-              ))}
-            </div>
-          </div>
+          <ul>
+            {tags.map((tag) => (
+              <li key={tag.slug}>
+                <Link to={`/owner/tags/${tag.slug}/cards?token=${encodeURIComponent(token)}`}>{tag.name}</Link>
+              </li>
+            ))}
+          </ul>
         )}
       </div>
     </section>
   );
 }
 
-export default TagsContainer;
+export default OwnerTagsIndexContainer;

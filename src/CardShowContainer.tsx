@@ -1,14 +1,12 @@
 import { useEffect, useState } from 'react';
-import { Link, useParams, useSearchParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { client } from './api/client';
 import type { components } from './api/schema';
 
 type CardData = components['schemas']['Card'];
 
-function OwnerCardContainer() {
+function CardShowContainer() {
   const { uuid } = useParams<{ uuid: string }>();
-  const [searchParams] = useSearchParams();
-  const token = searchParams.get('token') ?? '';
   const [card, setCard] = useState<CardData | null>(null);
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
@@ -46,31 +44,31 @@ function OwnerCardContainer() {
   return (
     <section className="section">
       <div className="container">
-        <h1 className="title">{card?.name}</h1>
-        <p className="subtitle">{card?.pinyin}</p>
-        <p>
-          <Link to={`/owner/card/${uuid}/edit?token=${encodeURIComponent(token)}`}>編集</Link>
-        </p>
-        <p>
-          <Link to={`/cards/${uuid}`}>公開ページを見る</Link>
-        </p>
-        {card && card.tags.length > 0 && (
-          <div className="tags">
-            {card.tags.map((tag) => (
-              <Link key={tag.slug} to={`/owner/tags/${tag.slug}/cards?token=${encodeURIComponent(token)}`} className="tag">
-                {tag.name}
-              </Link>
-            ))}
+        <div className="card">
+          <div className="card-content">
+            <div className="content is-large">
+              <h1>{card?.name}</h1>
+              <p>{card?.pinyin}</p>
+            </div>
+            {card && card.tags.length > 0 && (
+              <div className="tags">
+                {card.tags.map((tag) => (
+                  <Link key={tag.slug} to={`/tags/${tag.slug}/cards`} className="tag">
+                    {tag.name}
+                  </Link>
+                ))}
+              </div>
+            )}
+            {card?.card_description && (
+              <div className="content">
+                <p>{card.card_description.content}</p>
+              </div>
+            )}
           </div>
-        )}
-        {card?.card_description && (
-          <div className="content">
-            <p>{card.card_description.content}</p>
-          </div>
-        )}
+        </div>
       </div>
     </section>
   );
 }
 
-export default OwnerCardContainer;
+export default CardShowContainer;

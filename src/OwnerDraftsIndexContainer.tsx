@@ -6,7 +6,7 @@ import OwnerDraftCreateForm from './components/OwnerDraftCreateForm';
 
 type OwnerCardData = components['schemas']['OwnerCard'];
 
-function OwnerDraftsContainer() {
+function OwnerDraftsIndexContainer() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const token = searchParams.get('token') ?? '';
@@ -76,4 +76,4 @@ function OwnerDraftsContainer() {
   );
 }
 
-export default OwnerDraftsContainer;
+export default OwnerDraftsIndexContainer;

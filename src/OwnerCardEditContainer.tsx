@@ -7,7 +7,7 @@ import OwnerCardTagsEditor from './components/OwnerCardTagsEditor';
 
 type TagData = components['schemas']['Tag'];
 
-function OwnerCardEdit() {
+function OwnerCardEditContainer() {
   const { uuid } = useParams<{ uuid: string }>();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -124,4 +124,4 @@ function OwnerCardEdit() {
   );
 }
 
-export default OwnerCardEdit;
+export default OwnerCardEditContainer;
