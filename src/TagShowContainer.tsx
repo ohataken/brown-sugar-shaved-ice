@@ -5,7 +5,7 @@ import type { components } from './api/schema';
 
 type CardData = components['schemas']['Card'];
 
-function TagContainer() {
+function TagShowContainer() {
   const { slug } = useParams<{ slug: string }>();
   const [cards, setCards] = useState<CardData[]>([]);
   const [loading, setLoading] = useState(true);
@@ -69,4 +69,4 @@ function TagContainer() {
   );
 }
 
-export default TagContainer;
+export default TagShowContainer;
