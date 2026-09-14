@@ -8,7 +8,7 @@ import OwnerDraftCardForm from './components/OwnerDraftCardForm';
 
 type OwnerDraftCardData = components['schemas']['OwnerDraftCard'];
 
-function OwnerDraftEdit() {
+function OwnerDraftEditContainer() {
   const { uuid } = useParams<{ uuid: string }>();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -82,4 +82,4 @@ function OwnerDraftEdit() {
   );
 }
 
-export default OwnerDraftEdit;
+export default OwnerDraftEditContainer;
