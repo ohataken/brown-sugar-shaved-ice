@@ -27,7 +27,6 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/tags/:slug" element={<TagShowContainer />} />
         <Route path="/tags/:slug/play" element={<TagPlayContainer />} />
         <Route path="/tags/:slug/cards" element={<TagCardsIndexContainer />} />
-        <Route path="/owner/card/:uuid/edit" element={<OwnerCardEditContainer />} />
         <Route path="/owner/cards/:uuid/edit" element={<OwnerCardEditContainer />} />
         <Route path="/owner/cards/:uuid" element={<OwnerCardShowContainer />} />
         <Route path="/owner/drafts" element={<OwnerDraftsIndexContainer />} />
