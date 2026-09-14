@@ -5,7 +5,7 @@ import type { components } from './api/schema';
 
 type CardData = components['schemas']['Card'];
 
-function CardContainer() {
+function CardShowContainer() {
   const { uuid } = useParams<{ uuid: string }>();
   const [card, setCard] = useState<CardData | null>(null);
   const [loading, setLoading] = useState(true);
@@ -71,4 +71,4 @@ function CardContainer() {
   );
 }
 
-export default CardContainer;
+export default CardShowContainer;
