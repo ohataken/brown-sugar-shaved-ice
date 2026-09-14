@@ -5,7 +5,7 @@ import type { components } from './api/schema';
 
 type CardData = components['schemas']['Card'];
 
-function OwnerCardContainer() {
+function OwnerCardShowContainer() {
   const { uuid } = useParams<{ uuid: string }>();
   const [searchParams] = useSearchParams();
   const token = searchParams.get('token') ?? '';
@@ -73,4 +73,4 @@ function OwnerCardContainer() {
   );
 }
 
-export default OwnerCardContainer;
+export default OwnerCardShowContainer;
