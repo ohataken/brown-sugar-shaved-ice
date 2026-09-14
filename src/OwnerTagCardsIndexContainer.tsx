@@ -89,7 +89,7 @@ function OwnerTagCardsIndexContainer() {
           <ul>
             {cards.map((card) => (
               <li key={card.uuid}>
-                <Link to={`/owner/card/${card.uuid}/edit?token=${encodeURIComponent(token)}`}>{card.name}</Link>
+                <Link to={`/owner/cards/${card.uuid}/edit?token=${encodeURIComponent(token)}`}>{card.name}</Link>
               </li>
             ))}
           </ul>
