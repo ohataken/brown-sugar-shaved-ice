@@ -5,7 +5,7 @@ import type { components } from './api/schema';
 
 type CardData = components['schemas']['Card'];
 
-function TagCardsContainer() {
+function TagCardsIndexContainer() {
   const { slug } = useParams<{ slug: string }>();
   const [cards, setCards] = useState<CardData[]>([]);
   const [loading, setLoading] = useState(true);
@@ -70,4 +70,4 @@ function TagCardsContainer() {
   );
 }
 
-export default TagCardsContainer;
+export default TagCardsIndexContainer;
