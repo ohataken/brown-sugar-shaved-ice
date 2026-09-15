@@ -3,11 +3,11 @@ import { Link, useParams } from 'react-router-dom';
 import { client } from './api/client';
 import type { components } from './api/schema';
 
-type CardData = components['schemas']['Card'];
+type TagData = components['schemas']['TagWithCards']['tag'];
 
 function TagShowContainer() {
   const { slug } = useParams<{ slug: string }>();
-  const [cards, setCards] = useState<CardData[]>([]);
+  const [tag, setTag] = useState<TagData | null>(null);
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
 
@@ -17,7 +17,7 @@ function TagShowContainer() {
       params: { path: { tag_slug: slug } },
     }).then(({ data, response }) => {
       if (data) {
-        setCards(data.tag.cards);
+        setTag(data.tag);
       } else if (response.status === 404) {
         setNotFound(true);
       }
@@ -33,7 +33,7 @@ function TagShowContainer() {
     );
   }
 
-  if (notFound) {
+  if (notFound || !tag) {
     return (
       <section className="section">
         <div className="container">タグが見つかりませんでした</div>
@@ -48,10 +48,10 @@ function TagShowContainer() {
         <p>
           <Link to={`/tags/${slug}/play`} className="button is-primary">プレイする</Link>
         </p>
-        {cards.length === 0 ? (
+        {tag.cards.length === 0 ? (
           <p>カードがありません</p>
         ) : (
-          cards.map((card) => (
+          tag.cards.map((card) => (
             <div key={card.uuid} className="card">
               <div className="card-content">
                 <div className="content is-large">
