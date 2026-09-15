@@ -70,12 +70,12 @@ function OwnerTagCardsIndexContainer() {
   return (
     <section className="section">
       <div className="container">
+        <div className="notification">
+          ここは管理者ページです。ユーザー向けは<Link to={`/tags/${slug}/cards`}>こちら</Link>
+        </div>
         <div className="block">
           <h1 className="tag is-large">{tag.name}</h1>
         </div>
-        <p>
-          <Link to={`/tags/${slug}/cards`}>公開ページを見る</Link>
-        </p>
         <h2 className="title is-5">公開済み</h2>
         {cards.length === 0 ? (
           <p>公開済みのカードがありません</p>
