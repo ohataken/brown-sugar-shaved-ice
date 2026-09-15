@@ -29,6 +29,9 @@ function OwnerTagsIndexContainer() {
   return (
     <section className="section">
       <div className="container">
+        <div className="notification">
+          ここは管理者ページです。ユーザー向けは<Link to="/tags">こちら</Link>
+        </div>
         <h1 className="title">タグ一覧</h1>
         {tags.length === 0 ? (
           <div>タグがありません</div>

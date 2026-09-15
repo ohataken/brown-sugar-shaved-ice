@@ -46,13 +46,13 @@ function OwnerCardShowContainer() {
   return (
     <section className="section">
       <div className="container">
+        <div className="notification">
+          ここは管理者ページです。ユーザー向けは<Link to={`/cards/${uuid}`}>こちら</Link>
+        </div>
         <h1 className="title">{card?.name}</h1>
         <p className="subtitle">{card?.pinyin}</p>
         <p>
           <Link to={`/owner/cards/${uuid}/edit?token=${encodeURIComponent(token)}`}>編集</Link>
-        </p>
-        <p>
-          <Link to={`/cards/${uuid}`}>公開ページを見る</Link>
         </p>
         {card && card.tags.length > 0 && (
           <div className="tags">
