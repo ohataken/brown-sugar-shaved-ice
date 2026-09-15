@@ -35,7 +35,7 @@ function TagPlayContainer() {
     client
       .GET('/api/tags/{tag_slug}/cards', { params: { path: { tag_slug: slug } } })
       .then(({ data }) => {
-        if (data) setCards(shuffle(data));
+        if (data) setCards(shuffle(data.tag.cards));
       });
   }, [slug]);
 
