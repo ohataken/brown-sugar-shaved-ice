@@ -61,6 +61,13 @@ function TagCardsIndexContainer() {
                   </h1>
                   <p>{card.pinyin}</p>
                 </div>
+                <div className="tags">
+                  {card.tags.map((tag) => (
+                    <Link key={tag.slug} to={`/tags/${tag.slug}/cards`} className="tag">
+                      {tag.name}
+                    </Link>
+                  ))}
+                </div>
               </div>
             </div>
           ))
