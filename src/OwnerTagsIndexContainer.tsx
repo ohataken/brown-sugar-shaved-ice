@@ -33,13 +33,17 @@ function OwnerTagsIndexContainer() {
         {tags.length === 0 ? (
           <div>タグがありません</div>
         ) : (
-          <ul>
-            {tags.map((tag) => (
-              <li key={tag.slug}>
-                <Link to={`/owner/tags/${tag.slug}/cards?token=${encodeURIComponent(token)}`}>{tag.name}</Link>
-              </li>
-            ))}
-          </ul>
+          <div className="fixed-grid has-1-cols">
+            <div className="grid">
+              {tags.map((tag) => (
+                <div key={tag.slug} className="cell">
+                  <Link to={`/owner/tags/${tag.slug}/cards?token=${encodeURIComponent(token)}`} className="tag is-large">
+                    {tag.name}
+                  </Link>
+                </div>
+              ))}
+            </div>
+          </div>
         )}
       </div>
     </section>
