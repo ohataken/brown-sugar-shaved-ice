@@ -63,13 +63,27 @@ function OwnerDraftsIndexContainer() {
         {cards.length === 0 ? (
           <div>下書きがありません</div>
         ) : (
-          <ul>
-            {cards.map((card) => (
-              <li key={card.uuid}>
-                <Link to={`/owner/drafts/${card.uuid}/edit?token=${encodeURIComponent(token)}`}>{card.name}</Link>
-              </li>
-            ))}
-          </ul>
+          cards.map((card) => (
+            <div key={card.uuid} className="card">
+              <div className="card-content">
+                <div className="content is-large">
+                  <h1>
+                    <Link to={`/owner/drafts/${card.uuid}/edit?token=${encodeURIComponent(token)}`} className="has-text-inherit">{card.name}</Link>
+                  </h1>
+                  <p>{card.pinyin}</p>
+                </div>
+                {card.tags.length > 0 && (
+                  <div className="tags">
+                    {card.tags.map((tag) => (
+                      <Link key={tag.slug} to={`/owner/tags/${tag.slug}/cards?token=${encodeURIComponent(token)}`} className="tag">
+                        {tag.name}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          ))
         )}
       </div>
     </section>
