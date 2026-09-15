@@ -62,6 +62,13 @@ function TagShowContainer() {
                   </h1>
                   <p>{card.pinyin}</p>
                 </div>
+                <div className="tags">
+                  {card.tags.map((cardTag) => (
+                    <Link key={cardTag.slug} to={`/tags/${cardTag.slug}/cards`} className="tag">
+                      {cardTag.name}
+                    </Link>
+                  ))}
+                </div>
               </div>
             </div>
           ))
