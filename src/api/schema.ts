@@ -658,6 +658,64 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/owner/tags/{tag_slug}/cards": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                tag_slug: string;
+            };
+            cookie?: never;
+        };
+        /** Lists all cards belonging to a tag */
+        get: {
+            parameters: {
+                query?: never;
+                header: {
+                    Authorization: string;
+                };
+                path: {
+                    tag_slug: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description cards listed */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["OwnerTagWithCards"];
+                    };
+                };
+                /** @description unauthorized */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Errors"];
+                    };
+                };
+                /** @description tag not found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/owner/tags": {
         parameters: {
             query?: never;
@@ -866,6 +924,31 @@ export interface components {
             created_at: string;
             /** Format: date-time */
             updated_at: string;
+        };
+        OwnerCardWithTags: {
+            id: number;
+            uuid: string;
+            name: string;
+            pinyin: string;
+            /** Format: date-time */
+            published_at: string | null;
+            tags: components["schemas"]["Tag"][];
+            /** Format: date-time */
+            created_at: string;
+            /** Format: date-time */
+            updated_at: string;
+        };
+        OwnerTagWithCards: {
+            tag: {
+                id: number;
+                name: string;
+                slug: string;
+                /** Format: date-time */
+                created_at: string;
+                /** Format: date-time */
+                updated_at: string;
+                cards: components["schemas"]["OwnerCardWithTags"][];
+            };
         };
         CardInput: {
             card: {
