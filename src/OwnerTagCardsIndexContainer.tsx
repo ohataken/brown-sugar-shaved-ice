@@ -70,8 +70,9 @@ function OwnerTagCardsIndexContainer() {
   return (
     <section className="section">
       <div className="container">
-        <h1 className="title">タグのカード一覧</h1>
-        <p className="subtitle">{slug}</p>
+        <div className="block">
+          <h1 className="tag is-large">{tag.name}</h1>
+        </div>
         <p>
           <Link to={`/tags/${slug}/cards`}>公開ページを見る</Link>
         </p>
