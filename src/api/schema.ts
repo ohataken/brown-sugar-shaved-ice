@@ -745,7 +745,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["Card"][];
+                        "application/json": components["schemas"]["TagWithCards"];
                     };
                 };
                 /** @description tag not found */
@@ -817,6 +817,13 @@ export interface components {
         Tag: {
             slug: string;
             name: string;
+        };
+        TagWithCards: {
+            tag: {
+                slug: string;
+                name: string;
+                cards: components["schemas"]["Card"][];
+            };
         };
         OwnerCard: {
             id: number;
