@@ -4,13 +4,13 @@ import { client } from './api/client';
 import type { components } from './api/schema';
 import OwnerDraftCreateForm from './components/OwnerDraftCreateForm';
 
-type OwnerCardData = components['schemas']['OwnerCard'];
+type OwnerDraftCardData = components['schemas']['OwnerDraftCard'];
 
 function OwnerDraftsIndexContainer() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const token = searchParams.get('token') ?? '';
-  const [cards, setCards] = useState<OwnerCardData[]>([]);
+  const [cards, setCards] = useState<OwnerDraftCardData[]>([]);
   const [loading, setLoading] = useState(true);
   const [errors, setErrors] = useState<string[]>([]);
 
