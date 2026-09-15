@@ -3,15 +3,13 @@ import { Link, useParams, useSearchParams } from 'react-router-dom';
 import { client } from './api/client';
 import type { components } from './api/schema';
 
-type OwnerCardWithTagsData = components['schemas']['OwnerCardWithTags'];
+type OwnerTagData = components['schemas']['OwnerTagWithCards']['tag'];
 
 function OwnerTagCardsIndexContainer() {
   const { slug } = useParams<{ slug: string }>();
   const [searchParams] = useSearchParams();
   const token = searchParams.get('token') ?? '';
-  const [cards, setCards] = useState<OwnerCardWithTagsData[]>([]);
-  const [scheduled, setScheduled] = useState<OwnerCardWithTagsData[]>([]);
-  const [drafts, setDrafts] = useState<OwnerCardWithTagsData[]>([]);
+  const [tag, setTag] = useState<OwnerTagData | null>(null);
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
   const [errors, setErrors] = useState<string[]>([]);
@@ -22,10 +20,7 @@ function OwnerTagCardsIndexContainer() {
       params: { path: { tag_slug: slug }, header: { Authorization: token } },
     }).then(({ data, error, response }) => {
       if (data) {
-        const now = new Date();
-        setCards(data.tag.cards.filter((card) => card.published_at !== null && new Date(card.published_at) <= now));
-        setScheduled(data.tag.cards.filter((card) => card.published_at !== null && new Date(card.published_at) > now));
-        setDrafts(data.tag.cards.filter((card) => card.published_at === null));
+        setTag(data.tag);
       } else if (response.status === 404) {
         setNotFound(true);
       } else if (error) {
@@ -39,14 +34,6 @@ function OwnerTagCardsIndexContainer() {
     return (
       <section className="section">
         <div className="container">読み込み中...</div>
-      </section>
-    );
-  }
-
-  if (notFound) {
-    return (
-      <section className="section">
-        <div className="container">タグが見つかりませんでした</div>
       </section>
     );
   }
@@ -66,6 +53,19 @@ function OwnerTagCardsIndexContainer() {
       </section>
     );
   }
+
+  if (notFound || !tag) {
+    return (
+      <section className="section">
+        <div className="container">タグが見つかりませんでした</div>
+      </section>
+    );
+  }
+
+  const now = new Date();
+  const cards = tag.cards.filter((card) => card.published_at !== null && new Date(card.published_at) <= now);
+  const scheduled = tag.cards.filter((card) => card.published_at !== null && new Date(card.published_at) > now);
+  const drafts = tag.cards.filter((card) => card.published_at === null);
 
   return (
     <section className="section">
@@ -89,9 +89,9 @@ function OwnerTagCardsIndexContainer() {
                   <p>{card.pinyin}</p>
                 </div>
                 <div className="tags">
-                  {card.tags.map((tag) => (
-                    <Link key={tag.slug} to={`/owner/tags/${tag.slug}/cards?token=${encodeURIComponent(token)}`} className="tag">
-                      {tag.name}
+                  {card.tags.map((cardTag) => (
+                    <Link key={cardTag.slug} to={`/owner/tags/${cardTag.slug}/cards?token=${encodeURIComponent(token)}`} className="tag">
+                      {cardTag.name}
                     </Link>
                   ))}
                 </div>
@@ -111,9 +111,9 @@ function OwnerTagCardsIndexContainer() {
                   <p>{card.pinyin}</p>
                 </div>
                 <div className="tags">
-                  {card.tags.map((tag) => (
-                    <Link key={tag.slug} to={`/owner/tags/${tag.slug}/cards?token=${encodeURIComponent(token)}`} className="tag">
-                      {tag.name}
+                  {card.tags.map((cardTag) => (
+                    <Link key={cardTag.slug} to={`/owner/tags/${cardTag.slug}/cards?token=${encodeURIComponent(token)}`} className="tag">
+                      {cardTag.name}
                     </Link>
                   ))}
                 </div>
@@ -135,9 +135,9 @@ function OwnerTagCardsIndexContainer() {
                   <p>{card.pinyin}</p>
                 </div>
                 <div className="tags">
-                  {card.tags.map((tag) => (
-                    <Link key={tag.slug} to={`/owner/tags/${tag.slug}/cards?token=${encodeURIComponent(token)}`} className="tag">
-                      {tag.name}
+                  {card.tags.map((cardTag) => (
+                    <Link key={cardTag.slug} to={`/owner/tags/${cardTag.slug}/cards?token=${encodeURIComponent(token)}`} className="tag">
+                      {cardTag.name}
                     </Link>
                   ))}
                 </div>
