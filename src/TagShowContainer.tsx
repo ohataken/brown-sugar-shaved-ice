@@ -44,7 +44,9 @@ function TagShowContainer() {
   return (
     <section className="section">
       <div className="container">
-        <h1 className="title">{slug}</h1>
+        <div className="block">
+          <h1 className="tag is-large">{tag.name}</h1>
+        </div>
         <p>
           <Link to={`/tags/${slug}/play`} className="button is-primary">プレイする</Link>
         </p>
