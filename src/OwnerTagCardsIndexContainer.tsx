@@ -10,6 +10,7 @@ function OwnerTagCardsIndexContainer() {
   const [searchParams] = useSearchParams();
   const token = searchParams.get('token') ?? '';
   const [cards, setCards] = useState<OwnerCardWithTagsData[]>([]);
+  const [scheduled, setScheduled] = useState<OwnerCardWithTagsData[]>([]);
   const [drafts, setDrafts] = useState<OwnerCardWithTagsData[]>([]);
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
@@ -23,6 +24,7 @@ function OwnerTagCardsIndexContainer() {
       if (data) {
         const now = new Date();
         setCards(data.tag.cards.filter((card) => card.published_at !== null && new Date(card.published_at) <= now));
+        setScheduled(data.tag.cards.filter((card) => card.published_at !== null && new Date(card.published_at) > now));
         setDrafts(data.tag.cards.filter((card) => card.published_at === null));
       } else if (response.status === 404) {
         setNotFound(true);
@@ -84,6 +86,28 @@ function OwnerTagCardsIndexContainer() {
                   <h1>
                     <Link to={`/owner/cards/${card.uuid}/edit?token=${encodeURIComponent(token)}`} className="has-text-inherit">{card.name}</Link>
                   </h1>
+                  <p>{card.pinyin}</p>
+                </div>
+                <div className="tags">
+                  {card.tags.map((tag) => (
+                    <Link key={tag.slug} to={`/owner/tags/${tag.slug}/cards?token=${encodeURIComponent(token)}`} className="tag">
+                      {tag.name}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ))
+        )}
+        <h2 className="title is-5">公開予定</h2>
+        {scheduled.length === 0 ? (
+          <p>公開予定のカードがありません</p>
+        ) : (
+          scheduled.map((card) => (
+            <div key={card.uuid} className="card">
+              <div className="card-content">
+                <div className="content is-large">
+                  <h1>{card.name}</h1>
                   <p>{card.pinyin}</p>
                 </div>
                 <div className="tags">
