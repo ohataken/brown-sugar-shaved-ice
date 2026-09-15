@@ -3,42 +3,33 @@ import { Link, useParams, useSearchParams } from 'react-router-dom';
 import { client } from './api/client';
 import type { components } from './api/schema';
 
-type CardData = components['schemas']['Card'];
-type OwnerDraftCardData = components['schemas']['OwnerDraftCard'];
+type OwnerCardWithTagsData = components['schemas']['OwnerCardWithTags'];
 
 function OwnerTagCardsIndexContainer() {
   const { slug } = useParams<{ slug: string }>();
   const [searchParams] = useSearchParams();
   const token = searchParams.get('token') ?? '';
-  const [cards, setCards] = useState<CardData[]>([]);
-  const [drafts, setDrafts] = useState<OwnerDraftCardData[]>([]);
+  const [cards, setCards] = useState<OwnerCardWithTagsData[]>([]);
+  const [drafts, setDrafts] = useState<OwnerCardWithTagsData[]>([]);
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
   const [errors, setErrors] = useState<string[]>([]);
 
   useEffect(() => {
     if (!slug) return;
-    client.GET('/api/tags/{tag_slug}/cards', {
-      params: { path: { tag_slug: slug } },
-    }).then(({ data, response }) => {
+    client.GET('/api/owner/tags/{tag_slug}/cards', {
+      params: { path: { tag_slug: slug }, header: { Authorization: token } },
+    }).then(({ data, error, response }) => {
       if (data) {
-        setCards(data.tag.cards);
+        const now = new Date();
+        setCards(data.tag.cards.filter((card) => card.published_at !== null && new Date(card.published_at) <= now));
+        setDrafts(data.tag.cards.filter((card) => card.published_at === null));
       } else if (response.status === 404) {
         setNotFound(true);
-      }
-      setLoading(false);
-    });
-  }, [slug]);
-
-  useEffect(() => {
-    client.GET('/api/owner/cards/drafts', {
-      params: { header: { Authorization: token } },
-    }).then(({ data, error }) => {
-      if (data) {
-        setDrafts(data.filter((card) => card.tags.some((tag) => tag.slug === slug)));
       } else if (error) {
         setErrors(error.errors);
       }
+      setLoading(false);
     });
   }, [slug, token]);
 
