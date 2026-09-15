@@ -17,7 +17,7 @@ function TagShowContainer() {
       params: { path: { tag_slug: slug } },
     }).then(({ data, response }) => {
       if (data) {
-        setCards(data);
+        setCards(data.tag.cards);
       } else if (response.status === 404) {
         setNotFound(true);
       }
