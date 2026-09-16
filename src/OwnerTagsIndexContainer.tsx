@@ -33,6 +33,9 @@ function OwnerTagsIndexContainer() {
           ここは管理者ページです。ユーザー向けは<Link to="/tags">こちら</Link>
         </div>
         <h1 className="title">タグ一覧</h1>
+        <p>
+          <Link to={`/owner/tags/new?token=${encodeURIComponent(token)}`} className="button is-primary">タグを作成</Link>
+        </p>
         {tags.length === 0 ? (
           <div>タグがありません</div>
         ) : (
